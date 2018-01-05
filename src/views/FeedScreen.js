@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, StyleSheet, Text, View } from 'react-native';
+import { Creators } from '../store/actions/index';
 
 const styles = StyleSheet.create({
   container: {
@@ -19,14 +20,14 @@ const styles = StyleSheet.create({
 const FeedScreen = ({ navigation }) => (
   <View style={styles.container}>
     <Text style={styles.welcome}>
-      Screen A
+      Welcome to your feed
     </Text>
     <Text style={styles.instructions}>
-      This is great
+      Some great stuff here
     </Text>
     <Button
-      onPress={() => navigation.dispatch({ type: 'Login' })}
-      title="Log in"
+      onPress={() => navigation.dispatch(Creators.navigateDetail(10))}
+      title="Show Detail of item"
     />
   </View>
 );

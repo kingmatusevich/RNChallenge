@@ -10,35 +10,45 @@ import { createReducer } from 'reduxsauce';
 const firstAction = AppNavigator.router.getActionForPathAndParams('Feed');
 const tempNavState = AppNavigator.router.getStateForAction(firstAction);
 const secondAction = AppNavigator.router.getActionForPathAndParams('Home');
-const initialNavState = Immutable(AppNavigator.router.getStateForAction(
+const initialNavState = AppNavigator.router.getStateForAction(
   secondAction,
   tempNavState
-));
+);
 
 const INITIAL_STATE = initialNavState;
 
 export const loginSuccess = (state = INITIAL_STATE, action) => {
-  return Immutable(AppNavigator.router.getStateForAction(
+  return AppNavigator.router.getStateForAction(
     NavigationActions.back(),
     state
-  ));
+  );
 }
 
 export const logout = (state = INITIAL_STATE, action) => {
-  return Immutable(AppNavigator.router.getStateForAction(
+  return AppNavigator.router.getStateForAction(
     NavigationActions.navigate({ routeName: 'Home' }),
     state
-  ));
+  );
 }
 
 export const navigateFeed = loginSuccess;
 
 export const navigateDetail = (state = INITIAL_STATE, action) => {
-  return Immutable(AppNavigator.router.getStateForAction(
-    NavigationActions.navigate({routeName: "Detail"})
-  ));
+  return AppNavigator.router.getStateForAction(
+    NavigationActions.navigate({routeName: "Detail"}),
+    state
+  );
 }
 
+export const navigateBack = (state = INITIAL_STATE, action) => {
+  if (state.routes.some(e => e.routeName == "Home")) {
+    return state;
+  }
+  return AppNavigator.router.getStateForAction(
+    NavigationActions.back(),
+    state
+  );
+}
 
 // function navigationReducer(state = initialNavState, action) {
 //   let nextState;
@@ -79,6 +89,7 @@ export const HANDLERS = {
   [Types.LOGIN_SUCCESS]: loginSuccess,
   [Types.NAVIGATE_DETAIL]: navigateDetail,
   [Types.NAVIGATE_FEED]: navigateFeed,
+  "Navigation/BACK": navigateBack
 }
 
 //const initialAuthState = { isLoggedIn: false };

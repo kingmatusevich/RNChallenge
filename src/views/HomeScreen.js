@@ -19,10 +19,10 @@ const styles = StyleSheet.create({
 const HomeScreen = ({ navigation }) => (
   <View style={styles.container}>
     <Text style={styles.welcome}>
-      Screen A
+      Log In Screen
     </Text>
     <Text style={styles.instructions}>
-      This is great
+      Complete your username and password
     </Text>
     <Button
       onPress={() => navigation.dispatch(Creators.loginAttempt())}
@@ -38,7 +38,8 @@ HomeScreen.propTypes = {
 HomeScreen.navigationOptions = {
   title: 'Log In',
   mode: "modal",
-  header: null
+  header: null,
+  gesturesEnabled: false 
 };
 
 export default HomeScreen;

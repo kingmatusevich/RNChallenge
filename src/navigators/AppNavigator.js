@@ -10,9 +10,7 @@ import FeedScreen from '../views/FeedScreen';
 import DetailScreen from '../views/DetailScreen';
 
 export const AppNavigator = StackNavigator({
-  Home: { 
-    screen: HomeScreen
-  },
+  Home: { screen: HomeScreen },
   Feed: { screen: FeedScreen },
   Detail: { screen: DetailScreen },
 });

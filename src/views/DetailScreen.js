@@ -19,15 +19,11 @@ const styles = StyleSheet.create({
 const DetailScreen = ({ navigation }) => (
   <View style={styles.container}>
     <Text style={styles.welcome}>
-      Screen A
+      This is an item
     </Text>
     <Text style={styles.instructions}>
-      This is great
+      Show the detail here
     </Text>
-    <Button
-      onPress={() => navigation.dispatch({ type: 'Login' })}
-      title="Log in"
-    />
   </View>
 );
 
@@ -37,6 +33,8 @@ DetailScreen.propTypes = {
 
 DetailScreen.navigationOptions = {
   title: 'Detail',
+  mode: 'card',
+  headerBackTitle: "Back"
 };
 
 export default DetailScreen;
