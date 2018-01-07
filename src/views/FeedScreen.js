@@ -25,6 +25,8 @@ componentDidMount() {
       return (
         <DogFeedList navigation={navigation} items={api.items} favorites={api.currentFavorites}/>
       );
+    } else {
+      return null
     }
 
   }

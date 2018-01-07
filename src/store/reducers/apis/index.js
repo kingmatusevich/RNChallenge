@@ -13,6 +13,10 @@ const INITIAL_STATE = Immutable({
   currentFavorites: []
 });
 
+export const logout = (state = INITIAL_STATE, action) => {
+  return { ...INITIAL_STATE }
+}
+
 export const selectAPI = (state = INITIAL_STATE, action) => {
   return { 
     ...state, 
@@ -78,7 +82,8 @@ export const fetchSuccess = (state = INITIAL_STATE, action) => {
     ...state, 
     error: null,
     loading: false, 
-    items: action.items
+    items: action.items,
+    currentFavorites: !state.chosenAPI? [] : state.allFavorites.filter(e => e.chosenAPI === state.chosenAPI)
   }
 }
 
@@ -101,7 +106,8 @@ export const HANDLERS = {
   [Types.FETCH_SUCCESS]: fetchSuccess,
   [Types.CURRENT_FETCH_SUCCESS]: currentFetchSuccess,
   [Types.FAVORITE_ADD]: favoriteAdd,
-  [Types.FAVORITE_REMOVE]: favoriteRemove
+  [Types.FAVORITE_REMOVE]: favoriteRemove,
+  [Types.LOGOUT]: logout
 }
 
 export default createReducer(INITIAL_STATE, HANDLERS)

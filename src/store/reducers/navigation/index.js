@@ -25,7 +25,7 @@ export const loginSuccess = (state = INITIAL_STATE, action) => {
 }
 
 export const rehydrate = (state = INITIAL_STATE, action) => {
-  if (!!action.payload.username && !!action.payload.isLoggedIn)
+  if (action.key == "authentication" && !!action.payload && !!action.payload.username && !!action.payload.isLoggedIn)
   return AppNavigator.router.getStateForAction(
     NavigationActions.back(),
     state

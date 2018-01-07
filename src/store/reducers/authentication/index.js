@@ -14,7 +14,7 @@ export const loginSuccess = (state = INITIAL_STATE, action) => {
 }
 
 export const logout = (state = INITIAL_STATE, action) => {
-  return { INITIAL_STATE }
+  return { ...INITIAL_STATE }
 }
 
 export const loginFailure = (state = INITIAL_STATE, action) => {
