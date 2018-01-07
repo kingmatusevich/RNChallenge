@@ -1,10 +1,10 @@
 import Immutable from 'seamless-immutable';
 import {Types} from '../../actions'; 
 import { createReducer } from 'reduxsauce';
-const INITIAL_STATE = Immutable({ isLoggedIn: false, loading: false, error: null });
+const INITIAL_STATE = Immutable({ isLoggedIn: false, username: '', loading: false, error: null });
 
 export const loginAttempt = (state = INITIAL_STATE, action) => {
-  return { ...state, error: false, loading: true }
+  return { ...state, error: false, loading: true, username: action.username }
 }
 
 export const loginSuccess = (state = INITIAL_STATE, action) => {

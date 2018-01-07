@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button, StyleSheet, Text, View } from 'react-native';
+import { Button, StyleSheet, View } from 'react-native';
 import { Creators } from '../store/actions/index';
-
+import {Text} from 'react-native-elements'; 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -16,9 +16,12 @@ const styles = StyleSheet.create({
   },
 });
 
-const DrawerPanel = () => (
+const DrawerPanel = ({authentication}) => (
   
   <View style={styles.container}>
+    <Text h1>
+      {authentication.username || ''}
+    </Text>
     <Text style={styles.welcome}>
       Welcome to your drawer
     </Text>
@@ -26,7 +29,7 @@ const DrawerPanel = () => (
 );
 
 DrawerPanel.propTypes = {
-  
+  authentication: PropTypes.object.isRequired
 };
 
 export default DrawerPanel;

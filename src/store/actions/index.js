@@ -1,7 +1,7 @@
 import { createActions } from 'reduxsauce'
 
 export const { Types, Creators } = createActions({
-  loginAttempt: null,
+  loginAttempt: ['username', 'password'],
   loginSuccess: null,
   loginFailure: ['error'],
   logout: null,

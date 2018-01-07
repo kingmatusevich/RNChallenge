@@ -1,19 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {StyleSheet, Text, View } from 'react-native';
+import {StyleSheet, View, Keyboard } from 'react-native';
 import {Creators} from '../store/actions';
 import { FormLabel, FormInput, Button } from 'react-native-elements';
 import { connect } from 'react-redux';
+import {Text} from 'react-native-elements'; 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     alignItems: 'center',
     backgroundColor: '#F5FCFF'
   },
   main: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     alignItems: 'center',
     margin: 20
   },
@@ -22,35 +23,58 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     margin: 10,
   },
+  buttonStyle: {
+    marginTop: 20,
+    width: '100%'
+  }
 });
+class HomeScreen extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      username: '',
+      password: ''
+    }
+  }
 
-const HomeScreen = ({ navigation, authentication, dispatch }) => (
-  <View style={styles.container}>
-    <View style={styles.main}>
-      <Text style={styles.welcome}>
-        Log In Screen
-      </Text>
-      <Text style={styles.instructions}>
-        Complete your username and password
-      </Text>
-      <FormLabel>Username</FormLabel>
-      <FormInput/>
-      <FormLabel>Password</FormLabel>
-      <FormInput secureTextEntry/>
-      <Button
-        large
-        buttonStyle={{width: '100%'}}
-        backgroundColor="green"
-        loadingRight
-        disabled={authentication.loading}
-        loading={authentication.loading}
-        icon={{name: 'account-circle'}}
-        onPress={() => dispatch(Creators.loginAttempt())}
-        title='Log In' />
+  render () {
+    let {dispatch, authentication, navigation} = this.props;
+    let {username, password} = this.state;
+    const onChangeTextHandler = (field) => (value) => {
+      this.setState({
+        [field]: value
+      })
+    };
+
+    return (
+      <View style={styles.container}>
+        <View style={styles.main}>
+          <Text h2>
+            Log In Screen
+          </Text>
+          <Text>
+            Complete your username and password
+          </Text>
+          <FormLabel >Username</FormLabel>
+          <FormInput value={username} onChangeText={onChangeTextHandler('username')}/>
+          <FormLabel>Password</FormLabel>
+          <FormInput value={password} onChangeText={onChangeTextHandler('password')} secureTextEntry/>
+          <Button
+            large
+            containerViewStyle={styles.buttonStyle}
+            buttonStyle={styles.buttonStyle}
+            backgroundColor="green"
+            loadingRight
+            disabled={authentication.loading || username.length <3 || password.length <3}
+            loading={authentication.loading}
+            icon={{name: 'account-circle'}}
+            onPress={() => {dispatch(Creators.loginAttempt(username, password)); Keyboard.dismiss();}}
+            title='Log In' />
+          </View>
       </View>
-  </View>
-);
-
+    );
+  };
+};
 HomeScreen.propTypes = {
   navigation: PropTypes.object.isRequired,
 };

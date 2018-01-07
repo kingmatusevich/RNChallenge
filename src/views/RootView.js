@@ -24,7 +24,9 @@ class RootView extends React.Component {
       [
           <Drawer
             type="overlay"
-            content={<DrawerPanel />}
+            captureGestures={true}
+            negotiatePan
+            content={<DrawerPanel authentication={this.props.authentication}/>}
             key="drawer"
             tapToClose={true}
             openDrawerOffset={0.2} // 20% gap on the right side of drawer

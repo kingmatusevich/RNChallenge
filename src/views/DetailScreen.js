@@ -33,7 +33,7 @@ DetailScreen.propTypes = {
 DetailScreen.navigationOptions = ({navigation}) => {
   
   return {
-    title: navigation.state.params.itemId,
+    title: navigation.state.params.title,
     mode: 'card',
     headerBackTitle: "Back"
   };
