@@ -7,7 +7,8 @@ export const { Types, Creators } = createActions({
   logout: null,
   navigateHome: null,
   navigateDetail: ['id'],
-  navigateFeed: null
+  navigateFeed: null,
+  toggleDrawer: ['nextState']
 }, {}); // options - the 2nd parameter is optional
 
 console.log(Creators);
