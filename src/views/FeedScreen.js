@@ -4,7 +4,8 @@ import { StyleSheet, Text, View } from 'react-native';
 import { Icon, Button } from 'react-native-elements';
 import { Creators } from '../store/actions/index';
 import FeedList from '../components/FeedList';
-
+import { connect } from 'react-redux';
+import { List, ListItem } from 'react-native-elements'
 class FeedScreen extends React.Component {
   static navigationOptions = ({navigation}) => {
     return {
@@ -13,12 +14,27 @@ class FeedScreen extends React.Component {
   }
 };
 
+componentDidMount() {
+  
+}
+
   render () {
-    let {navigation} = this.props;
+    let {navigation, api} = this.props;
+    console.log('api received', api);
     return (
-          <FeedList navigation={navigation}/>
+          <FeedList navigation={navigation} items={api.items}/>
     );
   }
 };
 
-export default FeedScreen;
+FeedScreen.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  navigation: PropTypes.object.isRequired,
+  api: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => ({
+  api: state.api
+});
+
+export default connect(mapStateToProps)(FeedScreen);

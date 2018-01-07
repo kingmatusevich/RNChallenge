@@ -6,9 +6,13 @@ export const { Types, Creators } = createActions({
   loginFailure: ['error'],
   logout: null,
   navigateHome: null,
-  navigateDetail: ['id'],
+  navigateDetail: ['itemId'],
   navigateFeed: null,
-  toggleDrawer: ['nextState']
+  toggleDrawer: ['nextState'],
+  selectApi: ['apiName'],
+  fetchItems: null,
+  fetchSuccess: ['items'],
+  currentFetchSuccess: ['item'],
+  fetchError: ['error'],
+  fetchSpecificItem: ['itemId']
 }, {}); // options - the 2nd parameter is optional
-
-console.log(Creators);

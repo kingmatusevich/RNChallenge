@@ -14,6 +14,7 @@ function* fetchUser(action) {
      const loginAttempt = yield API();
     if (!!loginAttempt) {
       yield put(Creators.loginSuccess());
+      yield put(Creators.fetchItems());
     } else {
       yield put(Creators.loginFailure());
     }

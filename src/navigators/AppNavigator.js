@@ -15,17 +15,19 @@ export const AppNavigator = StackNavigator({
   Detail: { screen: DetailScreen },
 });
 
-const AppWithNavigationState = ({ dispatch, navigation }) => (
-  <AppNavigator navigation={addNavigationHelpers({ dispatch, state: navigation })} />
+const AppWithNavigationState = ({ dispatch, navigation}) => (
+  <AppNavigator navigation={addNavigationHelpers({ dispatch, state: navigation})} />
 );
 
 AppWithNavigationState.propTypes = {
   dispatch: PropTypes.func.isRequired,
   navigation: PropTypes.object.isRequired,
+
 };
 
 const mapStateToProps = state => ({
   navigation: state.navigation,
+
 });
 
 export default connect(mapStateToProps)(AppWithNavigationState);
