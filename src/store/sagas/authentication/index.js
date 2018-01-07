@@ -1,6 +1,6 @@
-import { call, put, takeEvery, takeLatest } from 'redux-saga/effects';
+import { call, put, takeEvery, takeLatest, fork } from 'redux-saga/effects';
 import {Types, Creators} from '../../actions';
-// worker Saga: will be fired on USER_FETCH_REQUESTED actions
+
 
 const API = () => {
   return new Promise((resolve, reject) => {
@@ -22,6 +22,7 @@ function* fetchUser(action) {
      yield put(Creators.loginFailure(e));
   }
 }
+
 /*
  Alternatively you may use takeLatest.
 
@@ -33,4 +34,7 @@ function* saga() {
  yield takeLatest(Types.LOGIN_ATTEMPT, fetchUser);
 }
 
-export default saga;
+export default function* completeSaga() {
+  yield fork(saga);
+}
+

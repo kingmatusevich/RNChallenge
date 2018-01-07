@@ -65,7 +65,7 @@ export function* specificItemSaga() {
  }
 
 export function* itemsSaga() {
-  yield takeLatest(Types.FETCH_ITEMS, fetchItems);
+  yield takeLatest([Types.FETCH_ITEMS, "persist/REHYDRATE"], fetchItems);
  }
 
 export default function* saga() {

@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { Creators } from '../store/actions/index';
-import {Text} from 'react-native-elements'; 
+import {Text, Button} from 'react-native-elements'; 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const DrawerPanel = ({authentication}) => (
+const DrawerPanel = ({authentication, dispatch}) => (
   
   <View style={styles.container}>
     <Text h1>
@@ -25,6 +25,7 @@ const DrawerPanel = ({authentication}) => (
     <Text style={styles.welcome}>
       Welcome to your drawer
     </Text>
+    <Button onPress={() => dispatch(Creators.logout())} title="Log Out" icon={{name: "account-circle"}} backgroundColor="blue" />
   </View>
 );
 

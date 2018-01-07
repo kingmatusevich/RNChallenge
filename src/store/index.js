@@ -3,6 +3,8 @@ import {
   applyMiddleware,
   compose
 } from 'redux';
+import { persistStore, purgeStoredState } from 'redux-persist';
+import storage from 'redux-persist/lib/storage'
 import createSagaMiddleware from 'redux-saga'
 import {
   createLogger
@@ -41,7 +43,8 @@ export const storeCreation = () => {
     rootReducer,
     enhancers
   );
-  return store;
+  let persistor = persistStore(store);
+  return {store, persistor};
 };
 
 export const startSagas = () => {

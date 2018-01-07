@@ -24,6 +24,15 @@ export const loginSuccess = (state = INITIAL_STATE, action) => {
   );
 }
 
+export const rehydrate = (state = INITIAL_STATE, action) => {
+  if (!!action.payload.username && !!action.payload.isLoggedIn)
+  return AppNavigator.router.getStateForAction(
+    NavigationActions.back(),
+    state
+  )
+  return {...state};
+}
+
 export const logout = (state = INITIAL_STATE, action) => {
   return AppNavigator.router.getStateForAction(
     NavigationActions.navigate({ routeName: 'Home' }),
@@ -97,10 +106,12 @@ export const navigateSetParams = (state = INITIAL_STATE, action) => {
 
 export const HANDLERS = {
   [Types.LOGIN_SUCCESS]: loginSuccess,
+  [Types.LOGOUT]: logout,
   [Types.NAVIGATE_DETAIL]: navigateDetail,
   [Types.NAVIGATE_FEED]: navigateFeed,
   "Navigation/BACK": navigateBack,
-  "Navigation/SET_PARAMS": navigateSetParams
+  "Navigation/SET_PARAMS": navigateSetParams,
+  "persist/REHYDRATE": rehydrate
 }
 
 //const initialAuthState = { isLoggedIn: false };
