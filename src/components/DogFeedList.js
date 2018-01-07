@@ -10,11 +10,22 @@ const styles = StyleSheet.create({
   }
 });
 
-const FeedList = ({navigation, items}) => (
+const FeedList = ({navigation, items, favorites}) => (
   <ScrollView>
       <List containerStyle={{marginTop: -0}}>
       {
-        !items ? null : items.map((l, i) => (
+        !items ? null : items.filter(i =>!!favorites.find(e => e.itemId == i)).map((l, i) => (
+          <ListItem
+            key={i}
+            title={l}
+            leftIcon={{name: "star"}}
+            underlayColor="#e8ebef"
+            onPress={() => navigation.dispatch(Creators.navigateDetail(l))}
+          />
+        ))
+      }
+      {
+        !items ? null : items.filter(i => !favorites.find(e => e.itemId == i)).map((l, i)=> (
           <ListItem
             key={i}
             title={l}

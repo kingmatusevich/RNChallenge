@@ -35,7 +35,7 @@ export const navigateFeed = loginSuccess;
 
 export const navigateDetail = (state = INITIAL_STATE, action) => {
   return AppNavigator.router.getStateForAction(
-    NavigationActions.navigate({routeName: "Detail", params: {title: action.itemId}}),
+    NavigationActions.navigate({routeName: "Detail", params: {title: action.itemId, itemId:action.itemId}}),
     state
   );
 }
@@ -46,6 +46,16 @@ export const navigateBack = (state = INITIAL_STATE, action) => {
   }
   return AppNavigator.router.getStateForAction(
     NavigationActions.back(),
+    state
+  );
+}
+
+export const navigateSetParams = (state = INITIAL_STATE, action) => {
+  console.log('setparams reducer', action);
+  let toDO = NavigationActions.setParams(action.params);
+  console.log('action', toDO);
+  return AppNavigator.router.getStateForAction(
+    action,
     state
   );
 }
@@ -89,7 +99,8 @@ export const HANDLERS = {
   [Types.LOGIN_SUCCESS]: loginSuccess,
   [Types.NAVIGATE_DETAIL]: navigateDetail,
   [Types.NAVIGATE_FEED]: navigateFeed,
-  "Navigation/BACK": navigateBack
+  "Navigation/BACK": navigateBack,
+  "Navigation/SET_PARAMS": navigateSetParams
 }
 
 //const initialAuthState = { isLoggedIn: false };

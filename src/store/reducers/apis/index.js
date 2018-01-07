@@ -8,7 +8,9 @@ const INITIAL_STATE = Immutable({
   loading: false, 
   currentItem: null, 
   error: null,
-  currentItemId: null 
+  currentItemId: null,
+  allFavorites: [],
+  currentFavorites: []
 });
 
 export const selectAPI = (state = INITIAL_STATE, action) => {
@@ -19,7 +21,25 @@ export const selectAPI = (state = INITIAL_STATE, action) => {
     items: [], 
     currentItem: null, 
     loading: true,
-    currentItemId: null
+    currentItemId: null,
+    currentFavorites: state.allFavorites.filter(e => e.chosenAPI === action.apiName)
+   }
+}
+
+export const favoriteAdd = (state = INITIAL_STATE, action) => {
+  const newItem = {itemId: action.favoriteId, chosenAPI: state.chosenAPI};
+  return { 
+    ...state, 
+    allFavorites: [...state.allFavorites, {...newItem}],
+    currentFavorites: [...state.currentFavorites, {...newItem}]
+   }
+}
+
+export const favoriteRemove = (state = INITIAL_STATE, action) => {
+  return { 
+    ...state, 
+    allFavorites: state.allFavorites.filter(e => e.itemId != action.favoriteId),
+    currentFavorites: state.currentFavorites.filter(e => e.itemId != action.favoriteId)
    }
 }
 
@@ -80,6 +100,8 @@ export const HANDLERS = {
   [Types.NAVIGATE_DETAIL]: fetchSpecificItem,
   [Types.FETCH_SUCCESS]: fetchSuccess,
   [Types.CURRENT_FETCH_SUCCESS]: currentFetchSuccess,
+  [Types.FAVORITE_ADD]: favoriteAdd,
+  [Types.FAVORITE_REMOVE]: favoriteRemove
 }
 
 export default createReducer(INITIAL_STATE, HANDLERS)

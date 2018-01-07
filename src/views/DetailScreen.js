@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, NetInfo } from 'react-native';
+import { Icon, Button } from 'react-native-elements';
 import { connect } from 'react-redux';
 import DogPicturesList from '../components/DogPicturesList';
+import { Creators } from '../store/actions/index';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -17,7 +19,32 @@ const styles = StyleSheet.create({
   },
 });
 
-const DetailScreen = ({ navigation, api }) => {
+class DetailScreen extends React.Component {
+
+  componentWillUpdate (nextProps) {
+    let currentId = nextProps.api.currentItemId;
+    if (currentId != this.props.api.currentItemId || nextProps.api.allFavorites != this.props.api.allFavorites) {
+      this.updateFavoriteStatus(this.calculateFavoriteStatus(nextProps))
+    }
+  }
+
+  updateFavoriteStatus = (nextValue) => {
+      this.props.navigation.setParams({...this.props.navigation.state.params, isFavorite: nextValue })
+  }
+
+  calculateFavoriteStatus = (props) => {
+    let currentId = props.api.currentItemId;
+    let currentFavorites = props.api.allFavorites;
+    let currentFind = currentFavorites.find(e => e.itemId == currentId);
+    return !currentFind? false: true;
+  }
+  
+  componentDidMount() {
+    this.updateFavoriteStatus(this.calculateFavoriteStatus(this.props))
+  }
+
+  render () {
+    let {api, navigation} = this.props;
     console.log('api received', api);
     if (api.chosenAPI === 'dogs') {
       return (
@@ -25,17 +52,20 @@ const DetailScreen = ({ navigation, api }) => {
       );
     }
   };
+}
 
 DetailScreen.propTypes = {
   navigation: PropTypes.object.isRequired,
 };
 
 DetailScreen.navigationOptions = ({navigation}) => {
-  
+  let itemId = navigation.state.params.itemId;
+  let action = !navigation.state.params.isFavorite ? Creators.favoriteAdd(itemId) : Creators.favoriteRemove(itemId);
+  let currentIcon = !navigation.state.params.isFavorite ? "star-border": "star";
   return {
     title: navigation.state.params.title,
     mode: 'card',
-    headerBackTitle: "Back"
+    headerRight:<Icon size={30} name={currentIcon} onPress={() => navigation.dispatch(action)} containerStyle={{marginRight: 10}} color="black" underlayColor="grey"/>
   };
 }
 

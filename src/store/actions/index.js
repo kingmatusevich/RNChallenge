@@ -14,5 +14,7 @@ export const { Types, Creators } = createActions({
   fetchSuccess: ['items'],
   currentFetchSuccess: ['item'],
   fetchError: ['error'],
-  fetchSpecificItem: ['itemId']
+  fetchSpecificItem: ['itemId'],
+  favoriteAdd: ['favoriteId'],
+  favoriteRemove: ['favoriteId']
 }, {}); // options - the 2nd parameter is optional
