@@ -30,11 +30,14 @@ DetailScreen.propTypes = {
   navigation: PropTypes.object.isRequired,
 };
 
-DetailScreen.navigationOptions = {
-  title: 'Detail',
-  mode: 'card',
-  headerBackTitle: "Back"
-};
+DetailScreen.navigationOptions = ({navigation}) => {
+  
+  return {
+    title: navigation.state.params.itemId,
+    mode: 'card',
+    headerBackTitle: "Back"
+  };
+}
 
 DetailScreen.propTypes = {
   dispatch: PropTypes.func.isRequired,
