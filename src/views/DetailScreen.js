@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, StyleSheet, Text, View } from 'react-native';
-
+import { connect } from 'react-redux';
+import DogPicturesList from '../components/DogPicturesList';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -16,16 +17,14 @@ const styles = StyleSheet.create({
   },
 });
 
-const DetailScreen = ({ navigation }) => (
-  <View style={styles.container}>
-    <Text style={styles.welcome}>
-      This is an item
-    </Text>
-    <Text style={styles.instructions}>
-      Show the detail here
-    </Text>
-  </View>
-);
+const DetailScreen = ({ navigation, api }) => {
+    console.log('api received', api);
+    if (api.chosenAPI === 'dogs') {
+      return (
+        <DogPicturesList navigation={navigation} items={api.currentItem}/>
+      );
+    }
+  };
 
 DetailScreen.propTypes = {
   navigation: PropTypes.object.isRequired,
@@ -37,4 +36,14 @@ DetailScreen.navigationOptions = {
   headerBackTitle: "Back"
 };
 
-export default DetailScreen;
+DetailScreen.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  navigation: PropTypes.object.isRequired,
+  api: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => ({
+  api: state.api
+});
+
+export default connect(mapStateToProps)(DetailScreen);

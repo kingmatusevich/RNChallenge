@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { StyleSheet, Text, View } from 'react-native';
 import { Icon, Button } from 'react-native-elements';
 import { Creators } from '../store/actions/index';
-import FeedList from '../components/FeedList';
+import DogFeedList from '../components/DogFeedList';
 import { connect } from 'react-redux';
 import { List, ListItem } from 'react-native-elements'
 class FeedScreen extends React.Component {
@@ -21,9 +21,12 @@ componentDidMount() {
   render () {
     let {navigation, api} = this.props;
     console.log('api received', api);
-    return (
-          <FeedList navigation={navigation} items={api.items}/>
-    );
+    if (api.chosenAPI === 'dogs') {
+      return (
+        <DogFeedList navigation={navigation} items={api.items}/>
+      );
+    }
+
   }
 };
 

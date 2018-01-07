@@ -14,10 +14,11 @@ const FeedList = ({navigation, items}) => (
   <ScrollView>
       <List containerStyle={{marginTop: -0}}>
       {
-        items.map((l, i) => (
+        !items ? null : items.map((l, i) => (
           <ListItem
             key={i}
             title={l}
+            underlayColor="#e8ebef"
             onPress={() => navigation.dispatch(Creators.navigateDetail(l))}
           />
         ))

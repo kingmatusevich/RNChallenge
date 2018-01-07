@@ -9,15 +9,22 @@ const getItems = () => {
   .get('/breeds/list')
   .then((response) => {
     console.log(response);
+    if(!response.ok) {
+      throw new Error(response);
+    }
+
     return response.data.message;
   })
 };
 
 const getItem = (breedName) => {
   return api
-  .get(`/breeds/${breedName}/list`)
+  .get(`/breed/${breedName}/images`)
   .then((response) => {
     console.log(response);
+    if(!response.ok) {
+      throw new Error(response);
+    }
     return response.data.message;
   })
 };
