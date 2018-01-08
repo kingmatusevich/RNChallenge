@@ -44,7 +44,7 @@ export const navigateFeed = loginSuccess;
 
 export const navigateDetail = (state = INITIAL_STATE, action) => {
   return AppNavigator.router.getStateForAction(
-    NavigationActions.navigate({routeName: "Detail", params: {title: action.itemId, itemId:action.itemId}}),
+    NavigationActions.navigate({routeName: "Detail", params: {title: action.name || action.itemId, itemId:action.itemId}}),
     state
   );
 }

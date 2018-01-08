@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { StyleSheet, Text, View, NetInfo } from 'react-native';
+import { StyleSheet, Text, View, NetInfo, ActivityIndicator } from 'react-native';
 import { Icon, Button } from 'react-native-elements';
 import { connect } from 'react-redux';
 import DogPicturesList from '../components/DogPicturesList';
+import BeerDetails from '../components/BeerDetails';
 import { Creators } from '../store/actions/index';
+import { navigateBack } from '../store/reducers/navigation/index';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -46,10 +48,15 @@ class DetailScreen extends React.Component {
   render () {
     let {api, navigation} = this.props;
     console.log('api received', api);
+    if (api.loading) return <View style={{marginTop: 10}}><ActivityIndicator size="large"/></View>;
     if (api.chosenAPI === 'dogs') {
       return (
         <DogPicturesList navigation={navigation} items={api.currentItem}/>
       );
+    } else if (api.chosenAPI === 'beers') {
+      return (
+        <BeerDetails navigation={navigation} data={api.currentItem} />
+      )
     }
   };
 }

@@ -2,24 +2,21 @@ import { call, put, takeEvery, takeLatest, select, fork } from 'redux-saga/effec
 import {Types, Creators} from '../../actions';
 // worker Saga: will be fired on USER_FETCH_REQUESTED actions
 import Dogs from './dogs';
+import Beers from './beers';
 export const getState = (state) => {
   console.log('base state', state);
   return state.api;
 };
+
+const APIs = {dogs: Dogs, beers: Beers};
 
 function* fetchItems(action) {
   console.log('saga started');
   let state = yield select(getState);
   console.log('saga called with state', state, 'and action', action);
   let {chosenAPI} = state;
-  let API;
-  switch(chosenAPI) {
-    case 'dogs':
-    API = Dogs;
-    break;
-    default:
-    API = Dogs;
-  }
+  console.log('chosenAPI', chosenAPI);
+  let API = APIs[chosenAPI];
   console.log('choseAPI', API);
   try {
      const items = yield API.getItems();
@@ -35,14 +32,7 @@ function* fetchCurrentItem(action) {
   let state = yield select(getState);
   console.log('saga called with state', state, 'and action', action);
   let {chosenAPI} = state;
-  let API;
-  switch(chosenAPI) {
-    case 'dogs':
-    API = Dogs;
-    break;
-    default:
-    API = Dogs;
-  }
+  let API = APIs[chosenAPI];
   console.log('choseAPI', API);
   try {
      const items = yield API.getItem(action.itemId);
@@ -65,7 +55,7 @@ export function* specificItemSaga() {
  }
 
 export function* itemsSaga() {
-  yield takeLatest([Types.FETCH_ITEMS, "persist/REHYDRATE"], fetchItems);
+  yield takeLatest([Types.FETCH_ITEMS, Types.SELECT_API, "persist/REHYDRATE"], fetchItems);
  }
 
 export default function* saga() {

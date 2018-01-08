@@ -6,7 +6,7 @@ export const { Types, Creators } = createActions({
   loginFailure: ['error'],
   logout: null,
   navigateHome: null,
-  navigateDetail: ['itemId'],
+  navigateDetail: ['itemId', 'name'],
   navigateFeed: null,
   toggleDrawer: ['nextState'],
   selectApi: ['apiName'],

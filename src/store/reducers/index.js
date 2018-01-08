@@ -13,7 +13,7 @@ const authConfig = {
 const favoritesConfig = {
   key: 'api',
   storage,
-  whitelist: ['allFavorites']
+  whitelist: ['allFavorites', 'chosenAPI']
 }
 
 import authentication from './authentication';

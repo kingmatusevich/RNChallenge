@@ -16,7 +16,8 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-start',
     alignItems: 'center',
-    margin: 20
+    margin: 20,
+    paddingTop: 30
   },
   welcome: {
     fontSize: 20,
@@ -50,7 +51,7 @@ class HomeScreen extends React.Component {
       <View style={styles.container}>
         <View style={styles.main}>
           <Text h2>
-            Log In Screen
+            Welcome
           </Text>
           <Text>
             Complete your username and password

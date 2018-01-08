@@ -4,7 +4,7 @@ import { createReducer } from 'reduxsauce';
 
 const INITIAL_STATE = Immutable({ 
   items: [], 
-  chosenAPI: 'dogs', 
+  chosenAPI: 'beers', 
   loading: false, 
   currentItem: null, 
   error: null,
@@ -96,6 +96,13 @@ export const currentFetchSuccess = (state = INITIAL_STATE, action) => {
   }
 }
 
+export const rehydrate = (state = INITIAL_STATE, action) => {
+  return { 
+    ...state, 
+    error: null, 
+    loading: true 
+  }
+}
 
 export const HANDLERS = {
   [Types.SELECT_API]: selectAPI,
@@ -107,7 +114,8 @@ export const HANDLERS = {
   [Types.CURRENT_FETCH_SUCCESS]: currentFetchSuccess,
   [Types.FAVORITE_ADD]: favoriteAdd,
   [Types.FAVORITE_REMOVE]: favoriteRemove,
-  [Types.LOGOUT]: logout
+  [Types.LOGOUT]: logout,
+  ["persist/REHYDRATE"]: rehydrate
 }
 
 export default createReducer(INITIAL_STATE, HANDLERS)

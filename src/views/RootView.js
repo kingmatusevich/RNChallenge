@@ -26,7 +26,7 @@ class RootView extends React.Component {
             type="overlay"
             captureGestures={true}
             negotiatePan
-            content={<DrawerPanel authentication={this.props.authentication} dispatch={this.props.dispatch}/>}
+            content={<DrawerPanel authentication={this.props.authentication} chosenAPI={this.props.chosenAPI} dispatch={this.props.dispatch}/>}
             key="drawer"
             tapToClose={true}
             openDrawerOffset={0.2} // 20% gap on the right side of drawer
@@ -51,6 +51,7 @@ RootView.propTypes = {
 
 const mapStateToProps = state => ({
   authentication: state.authentication,
+  chosenAPI: state.api.chosenAPI,
   drawer: state.drawer
 });
 
