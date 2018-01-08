@@ -2,7 +2,7 @@ import Immutable from 'seamless-immutable';
 import {Types} from '../../actions'; 
 import { createReducer } from 'reduxsauce';
 
-const INITIAL_STATE = Immutable({ 
+export const INITIAL_STATE = Immutable({ 
   items: [], 
   chosenAPI: 'beers', 
   loading: false, 
@@ -20,7 +20,7 @@ export const logout = (state = INITIAL_STATE, action) => {
 export const selectAPI = (state = INITIAL_STATE, action) => {
   return { 
     ...state, 
-    error: false, 
+    error: null, 
     chosenAPI: action.apiName, 
     items: [], 
     currentItem: null, 
@@ -50,7 +50,7 @@ export const favoriteRemove = (state = INITIAL_STATE, action) => {
 export const fetchItems = (state = INITIAL_STATE, action) => {
   return { 
     ...state, 
-    error: false, 
+    error: null, 
     loading: true, 
     items: [], 
     currentItem: null,
@@ -61,7 +61,7 @@ export const fetchItems = (state = INITIAL_STATE, action) => {
 export const fetchSpecificItem = (state = INITIAL_STATE, action) => {
   return { 
     ...state, 
-    error: false, 
+    error: null, 
     loading: true, 
     currentItem: null,  
     currentItemId: action.itemId
@@ -73,7 +73,8 @@ export const fetchError = (state = INITIAL_STATE, action) => {
     ...state, 
     error: action.error, 
     loading: false, 
-    currentItem: null 
+    currentItem: null ,
+    items: []
   }
 }
 
